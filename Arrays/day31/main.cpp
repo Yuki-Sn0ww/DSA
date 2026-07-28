@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<vector<int>> threeSum(vector<int> &nums)
+vector<vector<int>> fourSum(vector<int> &nums)
 {
     int n = nums.size();
     set<vector<int>> st;
@@ -29,7 +29,7 @@ vector<vector<int>> threeSum(vector<int> &nums)
 int main()
 {
     vector<int> nums = { 1, -2, 3, 5, 7, 9 } ;
-    vector<vector<int>> ans = threeSum(nums);
+    vector<vector<int>> ans = fourSum(nums);
     cout << "{ ";
     for (int i = 0; i < ans.size(); i++)
     {
