@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+//brute force
 int logestSubbarrayWithSumZero(vector<int> &nums)
 {
     int n = nums.size();
