@@ -73,7 +73,7 @@ void mergeOverlap(vector<vector<int>> &arr)
     int n = arr.size();
     vector<vector<int>> ans;
     for (int i = 1; i < n; i++)
-    {   
+    {
         vector<int> temp(2);
         temp[0] = start;
         temp[1] = end;
@@ -84,15 +84,14 @@ void mergeOverlap(vector<vector<int>> &arr)
         if (arr[i][0] <= end)
         {
             end = max(end, arr[i][1]);
-            
-            
         }
-        else {
+        else
+        {
             start = arr[i][0];
             end = arr[i][1];
         }
 
-            ans.push_back({start, end});
+        ans.push_back({start, end});
     }
     for (auto it : ans)
     {
