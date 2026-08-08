@@ -1,109 +1,75 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// void mergeOverlap(vector<vector<int>> &arr)
-// {
-//     sort(arr.begin(), arr.end());
-//     int n = arr.size();
-//     vector<vector<int>> intervals;
-//     for (int i = 0; i < n; i++)
-//     {
-//         vector<int> interval = arr[i];
-//         if (intervals.size() > 0) {
-//             vector<int> last = intervals.back();
-//             if (interval[1] <= last[1]) {
-//                 continue;
-//             }
-//         }
-//         for (int j = i + 1; j < n; j++)
-//         {
-//             vector<int> secondInterval = arr[j];
-//             if (secondInterval[0] < interval[1])
-//             {
-//                 intervals.push_back({interval[0], secondInterval[1]});
-//             } else {
-//                 break;
-//             }
+// void merge(vector<int> &nums1, vector<int> &nums2) {
+//     int m = nums1.size();
+//     int n = nums2.size();
+//     vector<int> temp;
+
+//     int i = 0;
+//     int j = 0;
+//     while (i < m && j < n) {
+//         if (nums1[i] <= nums2[j]) {
+//             temp.push_back(nums1[i]);
+//             i++;
+//         } else {
+//             temp.push_back(nums2[j]);
+//             j++;
 //         }
 //     }
-//     for (auto it : intervals)
+//     for (int i = 0; i < temp.size(); i++) {
+//         if (i < m) {
+//             nums1[i] = temp[i];
+//         } else {
+//             nums2[i-m] = temp[i];
+//         }
+//     }
+//     for (auto it : nums1) {
+//         cout << it << " ";
+//     }
+//     cout << endl;
+//     for (auto it : nums2)
 //     {
-//         cout << "{" << it[0] << "," << it[1] << "}";
-//         cout << endl;
+//         cout << it << " ";
 //     }
 //     cout << endl;
 // }
-
-// void mergeOverlap(vector<vector<int>> &arr)
-// {
-//     sort(arr.begin(), arr.end());
-//     int n = arr.size();
-//     vector<vector<int>> ans;
-//     for (int i = 0; i < n; i++)
-//     {
-//         int start = arr[i][0];
-//         int end = arr[i][1];
-//         if (!ans.empty() && end <= ans.back()[1]) {
-//             continue;
-//         }
-//         for (int j = i + 1; j < n; j++)
-//         {
-//             if (arr[j][0] <= end)
-//             {
-//                 end = max(end,arr[j][1]);
-//             }
-//             else
-//             {
-//                 break;
-//             }
-//         }
-//         ans.push_back({start, end});
-//     }
-//     for (auto it : ans)
-//     {
-//         cout << "{" << it[0] << "," << it[1] << "}";
-//         cout << endl;
-//     }
-//     cout << endl;
-// }
-
-void mergeOverlap(vector<vector<int>> &arr)
+void merge(vector<int> &nums1, vector<int> &nums2)
 {
-    sort(arr.begin(), arr.end());
-    int n = arr.size();
-    vector<vector<int>> ans;
-    for (int i = 1; i < n; i++)
-    {
-        vector<int> temp(2);
-        temp[0] = start;
-        temp[1] = end;
-        if (!ans.empty() && end <= ans.back()[1])
-        {
-            continue;
-        }
-        if (arr[i][0] <= end)
-        {
-            end = max(end, arr[i][1]);
-        }
-        else
-        {
-            start = arr[i][0];
-            end = arr[i][1];
-        }
+    int m = nums1.size();
+    int n = nums2.size();
+    vector<int> temp;
 
-        ans.push_back({start, end});
-    }
-    for (auto it : ans)
+    int i = m-1;
+    int j = 0;
+    while (i >= 0 && j < n)
     {
-        cout << "{" << it[0] << "," << it[1] << "}";
-        cout << endl;
+        if (nums2[j] < nums1[i])
+        {
+            swap(nums1[i], nums2[j]);
+            i--;
+            j++;
+        }
+        if (nums1[1] <= nums2[j]) break;
+    }
+    sort(nums1.begin(), nums1.end());
+    sort(nums2.begin(), nums2.end());
+    for (auto it : nums1)
+    {
+        cout << it << " ";
+    }
+    cout << endl;
+    for (auto it : nums2)
+    {
+        cout << it << " ";
     }
     cout << endl;
 }
 
 int main()
 {
-    vector<vector<int>> arr = {{1, 5}, {3, 6}, {8, 10}, {15, 18}};
-    mergeOverlap(arr);
+    vector<int> nums1 = { 1, 3, 5, 7 };
+    vector<int> nums2 = { 0, 2, 6, 8, 9 };
+    merge(nums1, nums2);
     return 0;
 }
