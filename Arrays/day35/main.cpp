@@ -34,26 +34,69 @@ using namespace std;
 //     }
 //     cout << endl;
 // }
+// void merge(vector<int> &nums1, vector<int> &nums2)
+// {
+//     int m = nums1.size();
+//     int n = nums2.size();
+//     vector<int> temp;
+
+//     int i = m-1;
+//     int j = 0;
+//     while (i >= 0 && j < n)
+//     {
+//         if (nums2[j] < nums1[i])
+//         {
+//             swap(nums1[i], nums2[j]);
+//             i--;
+//             j++;
+//         }
+//         else break;
+//     }
+//     sort(nums1.begin(), nums1.end());
+//     sort(nums2.begin(), nums2.end());
+//     for (auto it : nums1)
+//     {
+//         cout << it << " ";
+//     }
+//     cout << endl;
+//     for (auto it : nums2)
+//     {
+//         cout << it << " ";
+//     }
+//     cout << endl;
+// }
+
 void merge(vector<int> &nums1, vector<int> &nums2)
 {
-    int m = nums1.size();
-    int n = nums2.size();
-    vector<int> temp;
-
-    int i = m-1;
-    int j = 0;
-    while (i >= 0 && j < n)
-    {
-        if (nums2[j] < nums1[i])
-        {
-            swap(nums1[i], nums2[j]);
-            i--;
+    int n = nums1.size();
+    int m = nums2.size();
+    int gap = ((n + m) / 2) + ((n + m) % 2);
+    while (gap > 0) {
+        int i = 0; 
+        int j = i + gap;
+        while (j < (m+n)) {
+            if (i < n && j >= n) {
+                if (nums1[i] > nums2[j-n])
+                {
+                    swap(nums1[i], nums2[j-n]);
+                }
+            } else if (i >= n){
+                if (nums1[i-n] > nums2[j-n])
+                {
+                    swap(nums2[i-n], nums2[j - n]);
+                }
+            } else {
+                if (nums1[i] > nums1[j])
+                {
+                    swap(nums1[i], nums1[j]);
+                }
+            }
+            i++;
             j++;
         }
-        if (nums1[1] <= nums2[j]) break;
+        if (gap == 1) break;
+        gap = (gap/ 2) + (gap % 2);
     }
-    sort(nums1.begin(), nums1.end());
-    sort(nums2.begin(), nums2.end());
     for (auto it : nums1)
     {
         cout << it << " ";
