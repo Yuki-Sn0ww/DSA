@@ -87,14 +87,59 @@ using namespace std;
 //     cout << endl;
 // }
 
-//optimal2 - using xor 
-void findMissingRepeatingNumbers(vector<int> arr)
-{
-   
+//optimal2 - using xor  tc - O(4n) sc - O(1)
+vector<int> findMissingRepeatingNumbers(vector<int> arr) {
+    int n = arr.size();
+    int xr = 0;
+    for (int i = 0; i < n; i++) {
+        xr = xr ^ arr[i];
+        xr = xr ^ (i+1);
+    }
+
+    int bitNo = 0;
+
+    while (1) {
+        if ((xr & (1 << bitNo)) != 0) {
+            break;
+        }
+        bitNo++;
+    }
+    int zero = 0;
+    int one = 0;
+    for (int i = 0; i < n; i++) {
+        if ((arr[i] & (1 << bitNo)) != 0) {
+            one = one ^ arr[i];
+        } else {
+            zero = zero ^ arr[i];
+        }
+    }
+
+    for (int i = 1; i <= n; i++)
+    {
+        if ((i & (1 << bitNo)) != 0)
+        {
+            one = one ^ i;
+        }
+        else
+        {
+            zero = zero ^ i;
+        }
+    }
+
+    int count = 0; 
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == zero) count++;
+    }
+    if (count == 1) return {zero , one};
+    return {one , zero};
 }
 int main()
 {
     vector<int> arr = {4, 3, 6, 2, 1, 1};
-    findMissingRepeatingNumbers(arr);
+    vector<int> ans = findMissingRepeatingNumbers(arr);
+    for (auto it : ans) {
+        cout << it << " ";
+    }
+    cout << endl;
     return 0;
 }
